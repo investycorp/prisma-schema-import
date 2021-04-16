@@ -1,8 +1,11 @@
 {
-  "name": "prisma-schema-import",
+  "name": "@investycorp/prisma-schema-import",
   "version": "1.0.0",
   "description": "Import prisma schema from other repository",
   "main": "index.js",
+  "bin": {
+    "prisma-schema-import": "./index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,5 +22,12 @@
   "bugs": {
     "url": "https://github.com/investycorp/prisma-schema-import/issues"
   },
-  "homepage": "https://github.com/investycorp/prisma-schema-import#readme"
+  "homepage": "https://github.com/investycorp/prisma-schema-import#readme",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^7.2.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
 }
