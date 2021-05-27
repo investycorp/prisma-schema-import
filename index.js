@@ -36,9 +36,43 @@ const loadSchema = function () {
 const generatePackage = function (name, options) {
     const schemaPath = options.schema !== '' ? options.schema : path.join(appPath, '/prisma/schema.prisma');
     const packagePath = options.package !== '' ? options.package : path.join(appPath, `../${name}`);
+    const schema = fs.readFileSync(schemaPath, 'utf-8');
+    
+    fs.mkdir(packagePath, function () {
+        const scriptPath = path.join(packagePath, 'index.js');
+        const packageSchemaPath = path.join(packagePath, 'schema.prisma');
+        const packageJsonPath = path.join(packagePath, 'package.json');
+        const packageJsonData = {
+            name,
+            version: '1.0.0',
+            description: 'Schema for prisma-schema-import',
+            main: 'index.js',
+            files: [
+                'schema.prisma'
+            ]
+        };
 
-    console.log(schemaPath);
-    console.log(packagePath);
+        fs.writeFile(packageJsonPath, JSON.stringify(packageJsonData), 'utf-8', function () {
+            fs.writeFile(packageSchemaPath, schema, 'utf-8', function () {
+                const schemaScript = `
+                const fs = require('fs');
+
+                const loadSchema = function () {
+                    const schema = fs.readFileSync(\`${__dirname}/schema.prisma\`, 'utf-8');
+
+                    return schema;
+                };
+
+                module.exports = loadSchema;
+                `;
+
+                fs.writeFile(scriptPath, schemaScript, 'utf-8', function () {
+                    console.log(chalk.keyword('green')(`${name} package is generated!`));
+                    console.log(chalk.keyword('blue')(`package is saved at ${packagePath}`));
+                });
+            });
+        });
+    });
 };
 
 // Commander commands
