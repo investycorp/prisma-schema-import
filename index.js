@@ -33,9 +33,12 @@ const loadSchema = function () {
 };
 
 // Generate prisma-schema-* package from prisma schema
-const generatePackage = function (name, schemaPathArgument, packagePathArgument) {
-    const schemaPath = schemaPathArgument !== '' ? schemaPathArgument : path.join(appPath, '/prisma/schema.prisma');
-    const packagePath = packagePathArgument !== '' ? packagePathArgument : path.join(appPath, `../${name}`);
+const generatePackage = function (name, options) {
+    const schemaPath = options.schemaPath !== '' ? options.schemaPath : path.join(appPath, '/prisma/schema.prisma');
+    const packagePath = options.packagePath !== '' ? options.packagePath : path.join(appPath, `../${name}`);
+
+    console.log(schemaPath);
+    console.log(packagePath);
 };
 
 // Commander commands
