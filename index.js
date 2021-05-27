@@ -39,6 +39,7 @@ const libraryInfo = require(`${__dirname}/package.json`);
 program.version(libraryInfo.version);
 program
     .command('load')
+    .description('Load prisma schema from prisma-schema-* package')
     .action(loadSchema);
 
 program.parse(process.argv);
