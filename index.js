@@ -34,8 +34,8 @@ const loadSchema = function () {
 
 // Generate prisma-schema-* package from prisma schema
 const generatePackage = function (name, options) {
-    const schemaPath = options.schemaPath !== '' ? options.schemaPath : path.join(appPath, '/prisma/schema.prisma');
-    const packagePath = options.packagePath !== '' ? options.packagePath : path.join(appPath, `../${name}`);
+    const schemaPath = options.schema !== '' ? options.schema : path.join(appPath, '/prisma/schema.prisma');
+    const packagePath = options.package !== '' ? options.package : path.join(appPath, `../${name}`);
 
     console.log(schemaPath);
     console.log(packagePath);
