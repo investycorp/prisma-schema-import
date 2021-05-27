@@ -33,8 +33,9 @@ const loadSchema = function () {
 };
 
 // Generate prisma-schema-* package from prisma schema
-const generatePackage = function (schemaPath, packagePath) {
-
+const generatePackage = function (name, schemaPathArgument, packagePathArgument) {
+    const schemaPath = schemaPathArgument !== '' ? schemaPathArgument : path.join(appPath, '/prisma/schema.prisma');
+    const packagePath = packagePathArgument !== '' ? packagePathArgument : path.join(appPath, `../${name}`);
 };
 
 // Commander commands
@@ -49,7 +50,7 @@ program
     .action(loadSchema);
 
 program
-    .command('generate')
+    .command('generate <name>')
     .description('Generate prisma-schema-* package from prisma schema')
     .option('-s --schema <schemaPath>', 'path for exist prisma schema', '')
     .option('-p --package <packagePath>', 'path for generated package', '')
