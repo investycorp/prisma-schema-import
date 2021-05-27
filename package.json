@@ -1,6 +1,6 @@
 {
-  "name": "@investycorp/prisma-schema-import",
-  "version": "1.9.83",
+  "name": "prisma-schema-import",
+  "version": "0.0.1",
   "description": "Import prisma schema from other repository",
   "main": "index.js",
   "bin": {
@@ -26,8 +26,5 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "commander": "^7.2.0"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   }
 }
