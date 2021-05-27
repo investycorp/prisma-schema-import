@@ -1,6 +1,6 @@
 {
   "name": "prisma-schema-import",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Import prisma schema from other repository",
   "main": "index.js",
   "bin": {
