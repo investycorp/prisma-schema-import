@@ -32,14 +32,25 @@ const loadSchema = function () {
     }
 };
 
+// Generate prisma-schema-* package from prisma schema
+const generatePackage = function () {
+
+};
+
 // Commander commands
 
 const libraryInfo = require(`${__dirname}/package.json`);
 
 program.version(libraryInfo.version);
+
 program
     .command('load')
     .description('Load prisma schema from prisma-schema-* package')
     .action(loadSchema);
+
+program
+    .command('generate')
+    .description('Generate prisma-schema-* package from prisma schema')
+    .action(generatePackage);
 
 program.parse(process.argv);
