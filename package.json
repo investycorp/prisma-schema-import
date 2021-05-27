@@ -1,6 +1,6 @@
 {
   "name": "@investycorp/prisma-schema-import",
-  "version": "1.9.81",
+  "version": "1.9.82",
   "description": "Import prisma schema from other repository",
   "main": "index.js",
   "bin": {
