@@ -17,8 +17,8 @@ if (schemaDependencies.length) {
     const schemaPath = path.join(appPath, '/prisma/schema.prisma');
     const schemaData = schema();
 
-    fs.writeFile(schemaPath, schemaData, 'utf-8', function (err, data) {
-        if (data) {
+    fs.writeFile(schemaPath, schemaData, 'utf-8', function (err) {
+        if (!err) {
             console.log(chalk.keyword('green')(`${schemaName} is loaded!`));
             console.log(chalk.keyword('blue')(`schema is saved at ${schemaPath}`));
         }
