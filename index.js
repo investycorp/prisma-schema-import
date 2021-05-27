@@ -33,7 +33,7 @@ const loadSchema = function () {
 };
 
 // Generate prisma-schema-* package from prisma schema
-const generatePackage = function () {
+const generatePackage = function (schemaPath, packagePath) {
 
 };
 
@@ -51,6 +51,8 @@ program
 program
     .command('generate')
     .description('Generate prisma-schema-* package from prisma schema')
+    .option('-s --schema <schemaPath>', 'path for exist prisma schema', '')
+    .option('-p --package <packagePath>', 'path for generated package', '')
     .action(generatePackage);
 
 program.parse(process.argv);
