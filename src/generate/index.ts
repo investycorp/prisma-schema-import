@@ -8,13 +8,14 @@ import outputMessage from '../output';
 import { generatePackageOptions } from '../types/generate';
 import getAppPath from '../utils/getAppPath';
 
-const generatePackageJson = (name: string) => JSON.stringify({
+const generatePackageJson = (name: string, files: string[]) => JSON.stringify({
   name,
   version: '1.0.0',
   description: 'Schema for prisma-schema-import',
   main: 'index.js',
   files: [
     'schema.prisma',
+    ...files,
   ],
 }, null, 4);
 
@@ -30,18 +31,19 @@ const generatePackage = (name: string, options: generatePackageOptions) => {
     const scriptPath = path.resolve(path.join(packagePath, 'index.js'));
     const packageSchemaPath = path.resolve(path.join(packagePath, 'schema.prisma'));
     const packageJsonPath = path.resolve(path.join(packagePath, 'package.json'));
-    const packageJsonData = generatePackageJson(packageName);
 
-    writeFile(packageJsonPath, packageJsonData, { encoding: 'utf-8', flag: 'wx' }, () => {
-      writeFile(packageSchemaPath, schema, 'utf-8', () => {
-        writeFile(scriptPath, schemaScript, () => {
-          readdir(path.dirname(schemaPath), (err, filelist) => {
-            filelist.forEach((filename) => {
-              copyFileSync(
-                path.join(path.dirname(schemaPath), filename), path.join(packagePath, filename),
-              );
-            });
+    writeFile(packageSchemaPath, schema, 'utf-8', () => {
+      writeFile(scriptPath, schemaScript, () => {
+        readdir(path.dirname(schemaPath), (err, filelist) => {
+          filelist.forEach((filename) => {
+            copyFileSync(
+              path.join(path.dirname(schemaPath), filename), path.join(packagePath, filename),
+            );
+          });
 
+          const packageJsonData = generatePackageJson(packageName, filelist);
+
+          writeFile(packageJsonPath, packageJsonData, { encoding: 'utf-8', flag: 'wx' }, () => {
             gitInitialize(packagePath.toString());
             outputMessage('green', `${packageName} package is generated!`);
             outputMessage('cyan', `package is saved at ${packagePath}`);
