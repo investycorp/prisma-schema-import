@@ -11,7 +11,7 @@ yarn add -D prisma-schema-import
 
 And install your schema package (prisma-schema-*)
 
-## How to use
+## Features
 
 ### Generate your schema package
 
@@ -39,6 +39,34 @@ yarn prisma-schema-import load
 Install your schema package and run prisma-schema-import load command.
 
 prisma-schema-import will load your schema on schema package, and overwrite a /prisma/schema.prisma file.
+
+### Import other schema on schema
+
+prisma-schema-import will process schema merge on schema is loaded.
+
+If you want import other schema on prisma schema, write like below.
+
+#### On prisma.schema
+
+```prisma
+model User {
+    ...
+}
+
+@import('post.schema')
+
+model Comment {
+    ...
+}
+```
+
+#### On post.schema
+
+```prisma
+model Post {
+    ...
+}
+```
 
 ## Commands
 
