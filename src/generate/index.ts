@@ -4,6 +4,7 @@ import {
 import path from 'path';
 
 import { SCHEMA_SCRIPT } from '../constants';
+import gitInitialize from '../git';
 import outputMessage from '../output';
 import { generatePackageOptions } from '../types/generate';
 import getAppPath from '../utils/getAppPath';
@@ -33,6 +34,7 @@ const generatePackage = (name: string, options: generatePackageOptions) => {
     writeFile(packageJsonPath, packageJsonData, 'utf-8', () => {
       writeFile(packageSchemaPath, schema, 'utf-8', () => {
         writeFile(scriptPath, SCHEMA_SCRIPT, 'utf-8', () => {
+          gitInitialize(packagePath.toString());
           outputMessage('green', `${name} package is generated!`);
           outputMessage('blue', `package is saved at ${packagePath}`);
         });
