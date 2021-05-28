@@ -1,13 +1,13 @@
 {
   "name": "prisma-schema-import",
-  "version": "0.0.2",
+  "version": "1.0.8",
   "description": "Import prisma schema from other repository",
-  "main": "index.js",
+  "main": "dist/program.js",
   "bin": {
-    "prisma-schema-import": "./index.js"
+    "prisma-schema-import": "./dist/program.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postpublish": "tsc"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,18 @@
   },
   "homepage": "https://github.com/investycorp/prisma-schema-import#readme",
   "dependencies": {
+    "app-root-path": "^3.0.0",
     "chalk": "^4.1.0",
     "commander": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/app-root-path": "^1.2.4",
+    "@types/node": "^15.6.1",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.3",
+    "typescript": "^4.3.2"
   }
 }
