@@ -36,7 +36,7 @@ const generatePackage = (name: string, options: generatePackageOptions) => {
         writeFile(scriptPath, SCHEMA_SCRIPT, 'utf-8', () => {
           gitInitialize(packagePath.toString());
           outputMessage('green', `${name} package is generated!`);
-          outputMessage('blue', `package is saved at ${packagePath}`);
+          outputMessage('cyan', `package is saved at ${packagePath}`);
         });
       });
     });
