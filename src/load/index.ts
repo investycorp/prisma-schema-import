@@ -31,7 +31,7 @@ const writeSchema = (schemaName: string) => {
     }
 
     outputMessage('green', `${schemaName} is loaded!`);
-    outputMessage('blue', `schema is saved at ${schemaPath}`);
+    outputMessage('cyan', `schema is saved at ${schemaPath}`);
   });
 };
 
