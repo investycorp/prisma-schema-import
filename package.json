@@ -2,12 +2,12 @@
   "name": "prisma-schema-import",
   "version": "1.0.0",
   "description": "Import prisma schema from other repository",
-  "main": "index.js",
+  "main": "dist/program.js",
   "bin": {
     "prisma-schema-import": "./index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "esbuild ./src/program.ts --bundle --outdir=dist --platform=node"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "@types/node": "^15.6.1",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
+    "esbuild": "^0.12.5",
     "eslint": "^7.27.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.3",
