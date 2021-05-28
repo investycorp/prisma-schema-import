@@ -53,7 +53,7 @@ model User {
     ...
 }
 
-@import('post.schema')
+@import('./post.schema')
 
 model Comment {
     ...
