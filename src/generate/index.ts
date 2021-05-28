@@ -1,9 +1,8 @@
 import {
-  mkdir, writeFile, readFileSync,
+  mkdir, writeFile, readFileSync, readdir, copyFileSync,
 } from 'fs';
 import path from 'path';
 
-import { SCHEMA_SCRIPT } from '../constants';
 import gitInitialize from '../git';
 import outputMessage from '../output';
 import { generatePackageOptions } from '../types/generate';
@@ -27,17 +26,26 @@ const generatePackage = (name: string, options: generatePackageOptions) => {
   const schema = `// Generate by prisma-schema-import\n\n${originalSchema}`;
 
   mkdir(packagePath, () => {
+    const schemaScript = readFileSync(`${__dirname}/../schemaScripts/script.js`, 'utf-8');
     const scriptPath = path.resolve(path.join(packagePath, 'index.js'));
     const packageSchemaPath = path.resolve(path.join(packagePath, 'schema.prisma'));
     const packageJsonPath = path.resolve(path.join(packagePath, 'package.json'));
     const packageJsonData = generatePackageJson(packageName);
 
-    writeFile(packageJsonPath, packageJsonData, 'utf-8', () => {
+    writeFile(packageJsonPath, packageJsonData, { encoding: 'utf-8', flag: 'wx' }, () => {
       writeFile(packageSchemaPath, schema, 'utf-8', () => {
-        writeFile(scriptPath, SCHEMA_SCRIPT, 'utf-8', () => {
-          gitInitialize(packagePath.toString());
-          outputMessage('green', `${packageName} package is generated!`);
-          outputMessage('cyan', `package is saved at ${packagePath}`);
+        writeFile(scriptPath, schemaScript, () => {
+          readdir(path.dirname(schemaPath), (err, filelist) => {
+            filelist.forEach((filename) => {
+              copyFileSync(
+                path.join(path.dirname(schemaPath), filename), path.join(packagePath, filename),
+              );
+            });
+
+            gitInitialize(packagePath.toString());
+            outputMessage('green', `${packageName} package is generated!`);
+            outputMessage('cyan', `package is saved at ${packagePath}`);
+          });
         });
       });
     });
