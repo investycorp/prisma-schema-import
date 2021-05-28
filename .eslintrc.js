@@ -16,5 +16,15 @@ module.exports = {
   ],
   rules: {
     'import/no-dynamic-require': 0,
+    'global-require': 0,
+    'import/extensions': 0,
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.ts'],
+      },
+      typescript: './tsconfig.json',
+    },
   },
 };
