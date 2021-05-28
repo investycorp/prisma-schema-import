@@ -1,9 +1,10 @@
+#!/usr/bin/env node
 import { program } from 'commander';
 
 import loadSchema from './load';
 import generatePackage from './generate';
 
-const packageJson = require(`${__dirname}/package.json`);
+const packageJson = require(`${__dirname}/../package.json`);
 
 program.version(packageJson.version);
 
