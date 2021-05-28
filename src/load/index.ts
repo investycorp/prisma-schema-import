@@ -39,6 +39,7 @@ const loadSchema = () => {
   const schemaDependency = getSchemaDependency();
 
   if (schemaDependency) {
+    outputMessage('green', `${schemaDependency} is detected!`);
     writeSchema(schemaDependency);
   } else {
     outputMessage('red', 'Prisma schema dependencies are not detected');
