@@ -32,9 +32,9 @@ const generatePackage = (name: string, options: generatePackageOptions) => {
     const packageJsonPath = path.resolve(path.join(packagePath, 'package.json'));
     const packageJsonData = generatePackageJson(packageName);
 
-    writeFile(packageJsonPath, packageJsonData, 'utf-8', () => {
+    writeFile(packageJsonPath, packageJsonData, { encoding: 'utf-8', flag: 'wx' }, () => {
       writeFile(packageSchemaPath, schema, 'utf-8', () => {
-        writeFile(scriptPath, schemaScript, 'utf-8', () => {
+        writeFile(scriptPath, schemaScript, () => {
           readdir(path.dirname(schemaPath), (err, filelist) => {
             filelist.forEach((filename) => {
               copyFileSync(
