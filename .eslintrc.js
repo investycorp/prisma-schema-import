@@ -18,6 +18,7 @@ module.exports = {
     'import/no-dynamic-require': 0,
     'global-require': 0,
     'import/extensions': 0,
+    'import/prefer-default-export': 0,
   },
   settings: {
     'import/resolver': {
