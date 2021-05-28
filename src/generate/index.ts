@@ -20,8 +20,9 @@ const generatePackageJson = (name: string) => JSON.stringify({
 }, null, 4);
 
 const generatePackage = (name: string, options: generatePackageOptions) => {
+  const packageName = `prisma-schema-${name}`;
   const schemaPath = options.schema ? path.resolve(options.schema) : path.resolve(path.join(getAppPath, '/prisma/schema.prisma'));
-  const packagePath = options.package ? path.resolve(options.package) : path.resolve(path.join(getAppPath, `../${name}`));
+  const packagePath = options.package ? path.resolve(options.package) : path.resolve(path.join(getAppPath, `../${packageName}`));
   const originalSchema = readFileSync(schemaPath, 'utf-8');
   const schema = `// Generate by prisma-schema-import\n\n${originalSchema}`;
 
@@ -29,13 +30,13 @@ const generatePackage = (name: string, options: generatePackageOptions) => {
     const scriptPath = path.resolve(path.join(packagePath, 'index.js'));
     const packageSchemaPath = path.resolve(path.join(packagePath, 'schema.prisma'));
     const packageJsonPath = path.resolve(path.join(packagePath, 'package.json'));
-    const packageJsonData = generatePackageJson(name);
+    const packageJsonData = generatePackageJson(packageName);
 
     writeFile(packageJsonPath, packageJsonData, 'utf-8', () => {
       writeFile(packageSchemaPath, schema, 'utf-8', () => {
         writeFile(scriptPath, SCHEMA_SCRIPT, 'utf-8', () => {
           gitInitialize(packagePath.toString());
-          outputMessage('green', `${name} package is generated!`);
+          outputMessage('green', `${packageName} package is generated!`);
           outputMessage('cyan', `package is saved at ${packagePath}`);
         });
       });
