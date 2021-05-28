@@ -5,7 +5,7 @@ import outputMessage from '../output';
 import getAppPath from '../utils/getAppPath';
 
 const getSchemaDependency = () => {
-  const packageJsonPath = path.join(getAppPath(), 'package.json');
+  const packageJsonPath = path.join(getAppPath, 'package.json');
   const packageJson = require(packageJsonPath);
   const devDependencies = packageJson.devDependencies
     ? Object.keys(packageJson.devDependencies)
@@ -21,7 +21,7 @@ const getSchemaDependency = () => {
 
 const writeSchema = (schemaName: string) => {
   const schema = require(schemaName);
-  const schemaPath = path.join(getAppPath(), '/prisma/schema.prisma');
+  const schemaPath = path.join(getAppPath, '/prisma/schema.prisma');
   const schemaData = schema();
 
   writeFile(schemaPath, schemaData, 'utf-8', (err) => {

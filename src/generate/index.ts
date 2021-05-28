@@ -19,8 +19,8 @@ const generatePackageJson = (name: string) => JSON.stringify({
 }, null, 4);
 
 const generatePackage = (name: string, options: generatePackageOptions) => {
-  const schemaPath = options.schema ? path.resolve(options.schema) : path.resolve(path.join(getAppPath(), '/prisma/schema.prisma'));
-  const packagePath = options.package ? path.resolve(options.package) : path.resolve(path.join(getAppPath(), `../${name}`));
+  const schemaPath = options.schema ? path.resolve(options.schema) : path.resolve(path.join(getAppPath, '/prisma/schema.prisma'));
+  const packagePath = options.package ? path.resolve(options.package) : path.resolve(path.join(getAppPath, `../${name}`));
   const originalSchema = readFileSync(schemaPath, 'utf-8');
   const schema = `// Generate by prisma-schema-import\n\n${originalSchema}`;
 

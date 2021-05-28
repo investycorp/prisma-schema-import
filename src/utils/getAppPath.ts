@@ -1,1 +1,3 @@
-export default () => process.cwd();
+import appRoot from 'app-root-path';
+
+export default appRoot.path;

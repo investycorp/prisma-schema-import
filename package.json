@@ -24,10 +24,12 @@
   },
   "homepage": "https://github.com/investycorp/prisma-schema-import#readme",
   "dependencies": {
+    "app-root-path": "^3.0.0",
     "chalk": "^4.1.0",
     "commander": "^7.2.0"
   },
   "devDependencies": {
+    "@types/app-root-path": "^1.2.4",
     "@types/node": "^15.6.1",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
