@@ -1,13 +1,13 @@
 {
   "name": "prisma-schema-import",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Import prisma schema from other repository",
   "main": "dist/program.js",
   "bin": {
     "prisma-schema-import": "./bin/prisma-schema-import"
   },
   "scripts": {
-    "postpublish": "tsc"
+    "prepare": "tsc"
   },
   "repository": {
     "type": "git",
