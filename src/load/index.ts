@@ -1,7 +1,8 @@
 import { writeFile } from 'fs';
 import path from 'path';
-import { getRecentVersion } from '../checkUpdates';
+import semver from 'semver';
 
+import { getRecentVersion } from '../checkUpdates';
 import outputMessage from '../output';
 import getAppPath from '../utils/getAppPath';
 
@@ -22,8 +23,8 @@ const getSchemaDependency = () => {
       name: schemaDependencies[0],
       version:
         packageJson.dependencies[schemaDependencies[0]]
-          ? parseFloat(packageJson.dependencies[schemaDependencies[0]].replace('^', ''))
-          : parseFloat(packageJson.devDependencies[schemaDependencies[0]].replace('^', '')),
+          ? packageJson.dependencies[schemaDependencies[0]].replace('^', '')
+          : packageJson.devDependencies[schemaDependencies[0]].replace('^', ''),
     }
     : null;
 };
@@ -53,7 +54,7 @@ const loadSchema = () => {
 
     outputMessage('green', `${schemaDependency.name}@${schemaDependency.version} is detected!`);
 
-    if (localVersion < registryVersion) {
+    if (semver.lt(localVersion, registryVersion)) {
       outputMessage('red', `Update available ${schemaDependency.version} -> ${registryVersion}`);
     }
 
