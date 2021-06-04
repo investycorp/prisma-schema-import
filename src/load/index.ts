@@ -1,6 +1,8 @@
 import { writeFile } from 'fs';
 import path from 'path';
+import semver from 'semver';
 
+import { getRecentVersion } from '../checkUpdates';
 import outputMessage from '../output';
 import getAppPath from '../utils/getAppPath';
 
@@ -16,7 +18,15 @@ const getSchemaDependency = () => {
       (dependency) => !dependency.includes('prisma-schema-import') && dependency.includes('prisma-schema'),
     );
 
-  return schemaDependencies.length ? schemaDependencies[0] : null;
+  return schemaDependencies.length
+    ? {
+      name: schemaDependencies[0],
+      version:
+        packageJson.dependencies[schemaDependencies[0]]
+          ? packageJson.dependencies[schemaDependencies[0]].replace('^', '')
+          : packageJson.devDependencies[schemaDependencies[0]].replace('^', ''),
+    }
+    : null;
 };
 
 const writeSchema = (schemaName: string) => {
@@ -39,8 +49,16 @@ const loadSchema = () => {
   const schemaDependency = getSchemaDependency();
 
   if (schemaDependency) {
-    outputMessage('green', `${schemaDependency} is detected!`);
-    writeSchema(schemaDependency);
+    const localVersion = schemaDependency.version;
+    const registryVersion = getRecentVersion(getAppPath, schemaDependency.name);
+
+    outputMessage('green', `${schemaDependency.name}@${schemaDependency.version} is detected!`);
+
+    if (semver.lt(localVersion, registryVersion)) {
+      outputMessage('orange', `Schema updates available!\n${schemaDependency.name}@${schemaDependency.version} -> ${schemaDependency.name}@${registryVersion}`);
+    }
+
+    writeSchema(schemaDependency.name);
   } else {
     outputMessage('red', 'Prisma schema dependencies are not detected');
   }
