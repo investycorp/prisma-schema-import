@@ -55,7 +55,7 @@ const loadSchema = () => {
     outputMessage('green', `${schemaDependency.name}@${schemaDependency.version} is detected!`);
 
     if (semver.lt(localVersion, registryVersion)) {
-      outputMessage('red', `Update available ${schemaDependency.version} -> ${registryVersion}`);
+      outputMessage('orange', `Schema updates available!\n${schemaDependency.version} -> ${registryVersion}`);
     }
 
     writeSchema(schemaDependency.name);
