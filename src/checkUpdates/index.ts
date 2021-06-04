@@ -6,7 +6,7 @@ const getRecentVersion = (directory: string, name: string) => {
   };
   const version = execSync(`npm view ${name} version`, execOptions).toString().replace('\n', '');
 
-  return version;
+  return parseFloat(version);
 };
 
 export { getRecentVersion };
