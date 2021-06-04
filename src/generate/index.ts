@@ -14,7 +14,7 @@ const generatePackageJson = (name: string) => JSON.stringify({
   description: 'Schema for prisma-schema-import',
   main: 'index.js',
   files: [
-    'schema.prisma',
+    '*.prisma',
   ],
 }, null, 4);
 

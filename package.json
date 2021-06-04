@@ -7,7 +7,7 @@
     "prisma-schema-import": "./bin/prisma-schema-import"
   },
   "scripts": {
-    "postpublish": "tsc"
+    "prepare": "tsc"
   },
   "repository": {
     "type": "git",
